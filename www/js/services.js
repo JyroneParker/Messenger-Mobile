@@ -1,21 +1,27 @@
-angular.module('services', [
-      'ngWebSocket' // you may also use 'angular-websocket' if you prefer
-    ])
+angular.module('services', [])
     //                          WebSocket works as well
-    .factory('WebSocket', function($websocket,$http) {
+    .factory('WebSocket', function($http) {
       // Open a WebSocket connection
-      var dataStream = $websocket('wss://website.com/data');
+      var dataStream = io('http://messenger.app:6001');
+      console.log(dataStream);
 
       var messages = [];
 
-      dataStream.onMessage(function(message) {
-        messages.push(JSON.parse(message.data.message));
+      dataStream.on('message',function(data) {
+
+          messages.push(data.message);
+          console.log(messages);
+
+
       });
 
       var methods = {
         messages: messages,
         send: function(message) {
-        $http.post('/message'{ message:message}));
+        $http.post('http://messenger.app/message',{ message:message}).success(function(data){
+          ///messages.push(data);
+          //console.log(messages);
+        });
         }
       };
 
