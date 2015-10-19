@@ -2,7 +2,7 @@ angular.module('services', [])
     //                          WebSocket works as well
     .factory('WebSocket', function($http) {
       // Open a WebSocket connection
-      var dataStream = io('http://messenger.app:6001');
+      var dataStream = io('http://chat.jyroneparker.com/:6001');
       console.log(dataStream);
 
       var messages = [];
